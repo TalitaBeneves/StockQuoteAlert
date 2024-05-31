@@ -12,13 +12,13 @@ namespace StockQuoteAlert
             _config = config;
         }
 
-        public void SendEmail(string stock_asset, string action, decimal price, string message)
+        public void SendEmail(string stock_asset, string action, string message)
         {
-            var msg = PrepareteMessage(stock_asset, action, price, message);
+            var msg = PrepareteMessage(stock_asset, action, message);
             EnviarEmailPorSMTP(msg);
         }
 
-        private MailMessage PrepareteMessage(string stock_asset, string action, decimal price, string message)
+        private MailMessage PrepareteMessage(string stock_asset, string action, string message)
         {
             var mail = new MailMessage();
             mail.From = new MailAddress(_config.SmtpUser);
@@ -26,7 +26,7 @@ namespace StockQuoteAlert
             if (validarEmail(_config.EmailRecipient))
                 mail.To.Add(_config.EmailRecipient);
 
-            mail.Subject = $"Alerta de {action} {stock_asset}";
+            mail.Subject = $"Alert {action} {stock_asset}";
             mail.Body = message;
 
             mail.IsBodyHtml = true;
