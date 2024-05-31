@@ -1,20 +1,20 @@
 ﻿using StockQuoteAlert;
-using System;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
+
         if (args.Length != 3)
         {
             Console.WriteLine("Usage: Go to the bin > Debug > net8.0 folder \n and type: dotnet StockQuoteAlert.dll <stock> <selling_price> <buying_price>");
-            args = new string[] { "AAPL", "150", "100" };
+            args = new string[] { "AAPL", "100", "80" };
         }
 
         string stock_assets = args[0];
-        double sellingPrice, buyingPrice;
+        decimal sellingPrice, buyingPrice;
 
-        if (!double.TryParse(args[1], out sellingPrice) || !double.TryParse(args[2], out buyingPrice))
+        if (!decimal.TryParse(args[1], out sellingPrice) || !decimal.TryParse(args[2], out buyingPrice))
         {
             Console.WriteLine("Prices must be valid numbers.");
             return;
@@ -30,10 +30,10 @@ class Program
         }
 
         EmailConfig config = EmailConfig.Read(configPath);
-        Console.WriteLine($"EmailRecipient: {config.EmailRecipient}");
-
-        Console.WriteLine($"Stock: {stock_assets}");
-        Console.WriteLine($"Selling price: {sellingPrice}");
-        Console.WriteLine($"Buying price: {buyingPrice}");
+        QuoteService quoteService = new QuoteService();
+        EmailService emailService = new EmailService(config);
+        StockMonitor stockMonitor = new StockMonitor(quoteService, emailService, stock_assets, sellingPrice, buyingPrice);
+        
+        await stockMonitor.Monitor();
     }
 }
