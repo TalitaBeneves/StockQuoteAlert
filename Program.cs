@@ -1,4 +1,5 @@
 ﻿using StockQuoteAlert;
+using System.Globalization;
 
 class Program
 {
@@ -8,11 +9,14 @@ class Program
         if (args.Length != 3)
         {
             Console.WriteLine("Usage: Go to the bin > Debug > net8.0 folder \n and type: dotnet StockQuoteAlert.dll <stock> <selling_price> <buying_price>");
-            args = new string[] { "AAPL", "100", "80" };
+            Console.WriteLine("Running with default values: PETR4 38 36.67");
+            args = new string[] { "PETR4", "38", "36.67" };
         }
 
         string stock_assets = args[0];
         decimal sellingPrice, buyingPrice;
+
+        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
         if (!decimal.TryParse(args[1], out sellingPrice) || !decimal.TryParse(args[2], out buyingPrice))
         {
