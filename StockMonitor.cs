@@ -45,9 +45,9 @@ namespace StockQuoteAlert
                     }
 
                     if (regularMarketPrice > _sellingPrice)
-                        _emailService.SendEmail(_stock_assets, "VENDA da ação: ", _sellingPrice, $"Stock {_stock_assets} reached selling price of {regularMarketPrice} ");
+                        _emailService.SendEmail(_stock_assets, "Selling the stock: ", $"The {_stock_assets} stock has reached a sale price of {_sellingPrice}. Sale is recommended.");
                     else if (regularMarketPrice < _buyingPrice)
-                        _emailService.SendEmail(_stock_assets, "COMPRA da ação: ", _sellingPrice, $"Stock {_stock_assets} reached buying price of {regularMarketPrice}");
+                        _emailService.SendEmail(_stock_assets, "Buying the stock: ", $"The {_stock_assets} stock has reached a purchase price of {_buyingPrice}. Buy is recommended.");
 
                 }
                 catch (Exception ex)
