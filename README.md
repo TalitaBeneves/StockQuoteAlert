@@ -12,7 +12,7 @@ O sistema deve ser executado via linha de comando com três parâmetros:
 3- Preço de referência para compra: o preço abaixo do qual o alerta de compra será disparado <br/>
 
 ## Uso
-As configurações do servidor SMTP para envio de e-mails estão no arquivo Config.json, que deve ser editado com as informações corretas.
+As configurações do servidor SMTP para envio de e-mails estão no arquivo Configs.json, que deve ser editado com as informações corretas.
 
 Para executar o sistema, navegue até o diretório bin/Debug/net8.0/ e execute o seguinte comando: 
 > dotnet StockQuoteAlert.dll PETR4 22.67 22.59
